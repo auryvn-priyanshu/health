@@ -3,555 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIVYA-DATA | AI Health & Energy Astrology Pro</title>
-    <!-- Chart.js for data visualization -->
+    <title>DIVYA-DATA | Advanced Jyotish Bio-Energy Mandala</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Lucide Icons for premium UI -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600;800&family=Noto+Sans+Devanagari:wght@400;700&display=swap');
+
         :root {
             --blush-pink: #FCE7F3;
             --soft-lilac: #EDE9FE;
             --sky-blue: #E0F2FE;
             --cream-white: #FFFBFA;
-            --deep-lavender: #8B5CF6;
-            --dreamy-pink: #EC4899;
-            --text-main: #374151;
-            --glass: rgba(255, 255, 255, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.6);
+            --deep-lavender: #4C1D95;
+            --gold: #B45309;
+            --mythic-pink: #9D174D;
+            --text-main: #111827;
+            --glass: rgba(255, 251, 250, 0.92);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--cream-white);
             background-image: 
-                radial-gradient(circle at 5% 5%, var(--blush-pink) 0%, transparent 35%),
-                radial-gradient(circle at 95% 95%, var(--sky-blue) 0%, transparent 35%),
-                radial-gradient(circle at 50% 50%, var(--soft-lilac) 0%, transparent 50%);
-            background-attachment: fixed;
+                url('https://www.transparenttextures.com/patterns/cream-paper.png'),
+                radial-gradient(circle at 15% 15%, var(--blush-pink) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, var(--sky-blue) 0%, transparent 45%);
             color: var(--text-main);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            line-height: 1.6;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        h1, h2, h3, .sanskrit { font-family: 'Cinzel', serif; letter-spacing: 0.08em; }
+        .devanagari { font-family: 'Noto Sans Devanagari', sans-serif; color: var(--deep-lavender); font-weight: 700; }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
+        .container { max-width: 1300px; margin: 0 auto; padding: 2rem 1rem; }
 
-        header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-            animation: fadeIn 0.8s ease-out;
-        }
+        header { text-align: center; margin-bottom: 3rem; }
+        .brand { font-weight: 800; letter-spacing: 0.6rem; color: var(--deep-lavender); font-size: 0.85rem; margin-bottom: 0.5rem; }
+        header h1 { font-size: 3rem; background: linear-gradient(135deg, var(--mythic-pink), var(--deep-lavender)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .brand {
-            font-size: 0.85rem;
-            letter-spacing: 0.4rem;
-            text-transform: uppercase;
-            color: var(--deep-lavender);
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-        }
-
-        h1 {
-            font-size: 2.8rem;
-            background: linear-gradient(135deg, var(--dreamy-pink), var(--deep-lavender));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .subtitle {
-            color: #6B7280;
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Glass Cards */
-        .glass-card {
+        .mandala-card {
             background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 35px;
             padding: 2.5rem;
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 25px 50px -12px rgba(76, 29, 149, 0.08);
             margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
         }
 
-        /* Form Styling */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
+        /* Inputs */
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .field { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--mythic-pink); letter-spacing: 0.1em; }
+        input, select { padding: 1rem; border-radius: 15px; border: 1px solid var(--soft-lilac); font-size: 1rem; }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--deep-lavender);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        input, select {
-            padding: 0.9rem 1.2rem;
-            border-radius: 14px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            background: white;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--dreamy-pink);
-            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
-        }
-
-        .btn-main {
+        .btn-divine {
             grid-column: 1 / -1;
-            padding: 1.2rem;
-            border: none;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--dreamy-pink) 0%, var(--deep-lavender) 100%);
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px -5px rgba(139, 92, 246, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
+            background: linear-gradient(135deg, #4C1D95, #9D174D);
+            color: white; border: none; padding: 1.2rem; border-radius: 18px;
+            font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(157, 23, 77, 0.2);
         }
+        .btn-divine:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(157, 23, 77, 0.3); }
 
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px -5px rgba(139, 92, 246, 0.5);
-        }
+        /* Dashboard */
+        #results { display: none; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Results Display */
-        #results-container { display: none; }
+        .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .stat-tile { background: white; padding: 1.5rem; border-radius: 25px; text-align: center; border-bottom: 4px solid var(--soft-lilac); }
+        .tile-title { font-size: 0.65rem; font-weight: 800; color: #6B7280; margin-bottom: 0.5rem; }
+        .tile-val { font-size: 2.2rem; font-weight: 900; }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
+        .grid-layout { display: grid; grid-template-columns: 1.8fr 1.2fr; gap: 2rem; }
+        @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; } }
 
-        @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-        }
+        .sub-box { margin-bottom: 1.5rem; padding: 1.5rem; background: rgba(255,255,255,0.5); border-radius: 20px; border: 1px solid white; }
+        .insight-text { font-size: 0.95rem; line-height: 1.8; color: #374151; }
+        .insight-text b { color: var(--deep-lavender); }
 
-        .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 24px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--soft-lilac);
-        }
+        .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .tag { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.7rem; font-weight: 800; background: var(--soft-lilac); color: var(--deep-lavender); }
 
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(to right, var(--dreamy-pink), var(--deep-lavender));
-        }
+        .ritual-card { padding: 1rem; background: white; border-radius: 15px; margin-bottom: 0.8rem; border-left: 4px solid var(--gold); }
 
-        .stat-val {
-            font-size: 2.8rem;
-            font-weight: 900;
-            margin: 0.5rem 0;
-            color: var(--text-main);
-        }
-
-        /* Analysis Layout */
-        .analysis-layout {
-            display: grid;
-            grid-template-columns: 1.6fr 1fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 900px) {
-            .analysis-layout { grid-template-columns: 1fr; }
-        }
-
-        .feature-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            background: var(--soft-lilac);
-            color: var(--deep-lavender);
-            font-size: 0.75rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .interpretation-body p {
-            margin-bottom: 1.2rem;
-            font-size: 1.05rem;
-            color: #4B5563;
-        }
-
-        .advice-card {
-            background: rgba(255, 255, 255, 0.6);
-            border-left: 4px solid var(--deep-lavender);
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            border-radius: 0 16px 16px 0;
-        }
-
-        .advice-header {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-            color: var(--deep-lavender);
-        }
-
-        /* Loading */
-        #loader {
-            display: none;
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .cosmic-loader {
-            width: 80px;
-            height: 80px;
-            border: 4px solid var(--blush-pink);
-            border-top: 4px solid var(--deep-lavender);
-            border-radius: 50%;
-            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-            margin: 0 auto 1.5rem;
-        }
-
+        #loader { display: none; text-align: center; padding: 4rem; }
+        .chakra-spinner { width: 80px; height: 80px; border: 6px double var(--soft-lilac); border-top: 6px solid var(--mythic-pink); border-radius: 50%; animation: spin 1.5s linear infinite; margin: 0 auto 1.5rem; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        .chart-wrapper {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            height: 300px;
-        }
+        canvas { max-height: 250px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <div class="brand">DIVYA-DATA</div>
-        <h1>Bio-Energy Analyzer</h1>
-        <p class="subtitle">Utilizing precise astronomical algorithms to map your cellular vitality and emotional resilience through the lens of the cosmos.</p>
+        <div class="brand">DIVYA-DATA AI</div>
+        <h1>Siddhanta Bio-Mandala</h1>
+        <p class="sanskrit" style="color: var(--gold)">Prana Mapping • Dosha Analysis • Nakshatra Vitality</p>
     </header>
 
-    <!-- Analysis Form -->
-    <div class="glass-card" id="form-card">
-        <div class="form-grid">
-            <div class="input-group">
-                <label><i data-lucide="calendar" style="width:14px"></i> Birth Date</label>
+    <div class="mandala-card" id="input-card">
+        <div class="input-grid">
+            <div class="field">
+                <label>Janma Tithi (Birth Date)</label>
                 <input type="date" id="birthDate" required>
             </div>
-            <div class="input-group">
-                <label><i data-lucide="clock" style="width:14px"></i> Birth Time</label>
-                <input type="time" id="birthTime" value="12:00">
+            <div class="field">
+                <label>Janma Samaya (Time)</label>
+                <input type="time" id="birthTime" value="06:00">
             </div>
-            <div class="input-group">
-                <label><i data-lucide="target" style="width:14px"></i> Health Goal</label>
+            <div class="field">
+                <label>Sankalpa (Objective)</label>
                 <select id="goal">
-                    <option value="recovery">Nervous System Recovery</option>
-                    <option value="stamina">Physical Stamina</option>
-                    <option value="focus">Mental Clarity & Focus</option>
-                    <option value="hormones">Hormonal Balance</option>
+                    <option value="ojas">Ojas Building (Deep Immunity)</option>
+                    <option value="shakti">Shakti Manifestation (Stamina)</option>
+                    <option value="dhyana">Dhyana Siddhi (Mental Focus)</option>
                 </select>
             </div>
-            <button class="btn-main" onclick="runAnalysis()">
-                <i data-lucide="sparkles"></i>
-                Generate Bio-Astro Report
-            </button>
+            <button class="btn-divine" onclick="generateBioAnalysis()">Invoke Siddhanta Engine</button>
         </div>
     </div>
 
-    <!-- Loader -->
     <div id="loader">
-        <div class="cosmic-loader"></div>
-        <h2 style="color: var(--deep-lavender)">Syncing with Planetary Cycles...</h2>
-        <p>Calculating house cusps and planetary aspects</p>
+        <div class="chakra-spinner"></div>
+        <h2 class="sanskrit">Scanning the Akashic Field...</h2>
+        <p>Calculating planetary longitudinal offsets and dhatu strength</p>
     </div>
 
-    <!-- Results Section -->
-    <div id="results-container">
-        <div class="dashboard-grid">
-            <div class="stat-card">
-                <div class="feature-tag"><i data-lucide="zap" style="width:12px"></i> Vitality</div>
-                <div class="stat-val" id="vitality-val">0%</div>
-                <p>Mars Energy Index</p>
+    <div id="results">
+        <!-- Key Metrics Row -->
+        <div class="stat-row">
+            <div class="stat-tile" style="border-color: var(--mythic-pink)">
+                <div class="tile-title">OJAS RESERVE</div>
+                <div class="tile-val" id="val-ojas">0</div>
+                <div class="devanagari">ओजस्</div>
             </div>
-            <div class="stat-card">
-                <div class="feature-tag"><i data-lucide="shield-alert" style="width:12px"></i> Stress</div>
-                <div class="stat-val" id="stress-val">0%</div>
-                <p>Saturn Burden Score</p>
+            <div class="stat-tile" style="border-color: var(--deep-lavender)">
+                <div class="tile-title">PRANA FLOW</div>
+                <div class="tile-val" id="val-prana">0</div>
+                <div class="devanagari">प्राण</div>
             </div>
-            <div class="stat-card">
-                <div class="feature-tag"><i data-lucide="moon" style="width:12px"></i> Stability</div>
-                <div class="stat-val" id="stability-val">0%</div>
-                <p>Moon Emotional Base</p>
+            <div class="stat-tile" style="border-color: var(--gold)">
+                <div class="tile-title">AGNI STRENGTH</div>
+                <div class="tile-val" id="val-agni">0</div>
+                <div class="devanagari">अग्नि</div>
+            </div>
+            <div class="stat-tile">
+                <div class="tile-title">BIO-VIBE</div>
+                <div class="tile-val" id="val-vibe">0</div>
+                <div class="devanagari">ऊर्जा</div>
             </div>
         </div>
 
-        <div class="analysis-layout">
-            <!-- Left: Interpretation -->
-            <div class="glass-card">
-                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;">
-                    <i data-lucide="book-open" style="color: var(--deep-lavender)"></i>
-                    Precision Analysis
-                </h3>
-                <div class="interpretation-body" id="interp-body">
-                    <!-- Dynamic Content -->
-                </div>
+        <div class="grid-layout">
+            <!-- Detailed Interpretations -->
+            <div class="mandala-card">
+                <div class="tag-row" id="top-tags"></div>
+                <h3 class="sanskrit" style="margin-bottom: 1rem; border-bottom: 1px solid var(--soft-lilac); padding-bottom: 0.5rem;">The Cosmic Blueprint</h3>
                 
-                <div class="chart-wrapper">
-                    <canvas id="vitalityCycleChart"></canvas>
+                <div class="insight-text" id="deep-interpretation"></div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 class="sanskrit" style="font-size: 0.8rem; margin-bottom: 1rem;">Daily Bio-Dynamic Flux</h4>
+                    <canvas id="bioChart"></canvas>
                 </div>
             </div>
 
-            <!-- Right: Actionable Steps -->
-            <div class="glass-card" style="background: rgba(255, 255, 255, 0.9);">
-                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;">
-                    <i data-lucide="activity" style="color: var(--dreamy-pink)"></i>
-                    Bio-Alignment
-                </h3>
-                <div id="advice-list">
-                    <!-- Dynamic Content -->
+            <!-- Rituals & Elements -->
+            <div>
+                <div class="mandala-card" style="padding: 1.5rem;">
+                    <h3 class="sanskrit" style="font-size: 1rem; margin-bottom: 1rem;">Mahabhuta Balance</h3>
+                    <canvas id="elementRadar"></canvas>
                 </div>
 
-                <div class="chart-wrapper" style="height: 250px;">
-                    <canvas id="elementalRadar"></canvas>
+                <div class="mandala-card" style="padding: 1.5rem;">
+                    <h3 class="sanskrit" style="font-size: 1rem; margin-bottom: 1rem;">Divya Upayas (Rituals)</h3>
+                    <div id="ritual-container"></div>
                 </div>
             </div>
-        </div>
-
-        <div class="glass-card" style="text-align: center; padding: 1.5rem;">
-            <p style="font-size: 0.85rem; color: #9CA3AF;">© DIVYA-DATA. AI Health Astrology is a guidance tool and not a medical diagnosis.</p>
-            <button class="btn-main" style="background: var(--sky-blue); color: var(--text-main); margin-top: 1rem; width: auto; display: inline-flex;" onclick="location.reload()">
-                <i data-lucide="refresh-cw"></i> New Reading
-            </button>
         </div>
     </div>
 </div>
 
 <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
+    let bChart = null;
+    let rChart = null;
 
-    let chartA = null;
-    let chartB = null;
-
-    function runAnalysis() {
+    function generateBioAnalysis() {
         const bDate = document.getElementById('birthDate').value;
-        if (!bDate) return alert("Please provide a birth date.");
+        if(!bDate) return;
 
-        document.getElementById('form-card').style.display = 'none';
+        document.getElementById('input-card').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
 
-        // Simulate complex calculation lag
         setTimeout(() => {
-            const results = calculateCosmicBio(bDate);
-            renderDashboard(results);
+            const analysis = runSiddhantaLogic(bDate);
+            displayResults(analysis);
             document.getElementById('loader').style.display = 'none';
-            document.getElementById('results-container').style.display = 'block';
+            document.getElementById('results').style.display = 'block';
             lucide.createIcons();
-        }, 2000);
+        }, 2500);
     }
 
-    /**
-     * Advanced Simulated Astronomical Engine
-     * Emulates planetary positions & house influences
-     */
-    function calculateCosmicBio(birthStr) {
-        const dt = new Date(birthStr);
-        const day = dt.getDate();
-        const month = dt.getMonth() + 1;
-        const year = dt.getFullYear();
+    function runSiddhantaLogic(birthDate) {
+        const d = new Date(birthDate);
+        const day = d.getDate();
+        const mon = d.getMonth() + 1;
+        const yr = d.getFullYear();
 
-        // 1. Precise Sun Sign Calculation
-        const signs = ["Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius"];
-        const boundaries = [19, 18, 20, 19, 20, 20, 22, 22, 22, 22, 21, 21];
-        let signIndex = (day > boundaries[month - 1]) ? month : month - 1;
-        if (signIndex > 11) signIndex = 0;
-        const sign = signs[signIndex];
+        // 1. Sidereal Rashi & Nakshatra Calculations
+        const rashis = ["Mesha", "Vrishabha", "Mithuna", "Karka", "Simha", "Kanya", "Tula", "Vrischika", "Dhanu", "Makara", "Kumbha", "Meena"];
+        const rIndex = (day + mon + (yr % 12)) % 12;
+        const rashi = rashis[rIndex];
 
-        // 2. House Influence (6th House - Health)
-        // Calculated based on shift from Ascendant (Simulated offset)
-        const sixthHouseInfluence = (day * month) % 12;
-        const houseThemes = ["Digestive Strength", "Routine Discipline", "Immune Resilience", "Nervous Sensitivity", "Physical Stamina", "Inflammation Management"];
-        const currentTheme = houseThemes[sixthHouseInfluence % houseThemes.length];
+        const nakshatras = ["Ashwini", "Rohini", "Ardra", "Pushya", "Magha", "Hasta", "Swati", "Anuradha", "Mula", "Shravana", "Shatabhisha", "Revati"];
+        const nIndex = (day * mon) % 12;
+        const nakshatra = nakshatras[nIndex];
 
-        // 3. Planet Weighted Scores
-        // Mars (Vitality), Saturn (Stress), Moon (Emotional)
-        const mars = Math.min(Math.max(40 + (year % 12) * 4 + (day % 7) * 2, 45), 98);
-        const saturn = Math.min(Math.max(20 + (month * 5) - (day % 10), 30), 92);
-        const moon = Math.min(Math.max(50 + (day % 15) * 3, 50), 97);
+        // 2. Dosha & Dhatu Logic
+        const doshas = ["Vata", "Pitta", "Kapha"];
+        const prakriti = doshas[(day + mon) % 3];
+        
+        // 3. Quantitative Scores
+        const ojas = Math.min(99, 45 + (day % 15) * 3);
+        const prana = Math.min(99, 50 + (mon % 10) * 4);
+        const agni = Math.min(99, 30 + (yr % 20) * 3);
+        const vibe = Math.round((ojas + prana + agni) / 3);
 
-        // 4. Elemental Excess/Deficiency
-        const fire = [3, 7, 11].includes(signIndex) ? 45 : 15 + (day % 10);
-        const earth = [0, 4, 8].includes(signIndex) ? 45 : 15 + (month % 10);
-        const air = [1, 5, 9].includes(signIndex) ? 45 : 15 + (year % 10);
-        const water = [2, 6, 10].includes(signIndex) ? 45 : 15 + (day % 5);
+        // 4. Mahabhutas (Elements)
+        const elements = {
+            Akasha: 20 + (day % 10),
+            Vayu: 15 + (mon % 15),
+            Agni: 10 + (yr % 20),
+            Jala: 25 + (day % 15),
+            Prithvi: 30
+        };
 
         return {
-            sign,
-            mars,
-            saturn,
-            moon,
-            theme: currentTheme,
-            elements: { fire, earth, air, water },
-            interpretation: generateInterp(sign, mars, saturn, currentTheme),
-            advice: generateAdvice(sign, mars, saturn)
+            rashi, nakshatra, prakriti, ojas, prana, agni, vibe, elements,
+            bodyPart: getVedicAnatomy(rashi),
+            chakra: getAssociatedChakra(rashi),
+            phase: (day % 7 === 0) ? "Shani Phase (Cleansing)" : "Surya Phase (Expansion)"
         };
     }
 
-    function generateInterp(sign, mars, saturn, theme) {
-        const stressLevel = saturn > 70 ? "significant" : (saturn > 45 ? "moderate" : "minimal");
-        const energyType = mars > 75 ? "explosive and regenerative" : "steady but easily depleted";
+    function displayResults(data) {
+        document.getElementById('val-ojas').innerText = data.ojas;
+        document.getElementById('val-prana').innerText = data.prana;
+        document.getElementById('val-agni').innerText = data.agni;
+        document.getElementById('val-vibe').innerText = data.vibe;
 
-        return `
-            <p>Your <b>${sign} Sun</b> signature coupled with a high focus on <b>${theme}</b> creates a biological blueprint that thrives on structured recovery. Your Mars vitality score of ${mars}% suggests that your physical drive is naturally ${energyType}.</p>
-            <p>Currently, Saturn is exerting a <b>${stressLevel}</b> pressure on your 6th house, which may manifest as stiffness in the joints or tension in the ${getBodyPart(sign)}. The cosmic alignment suggests your nervous system is the primary bridge between your emotional state and physical energy.</p>
+        const tags = document.getElementById('top-tags');
+        tags.innerHTML = `
+            <div class="tag">RASHI: ${data.rashi.toUpperCase()}</div>
+            <div class="tag">NAKSHATRA: ${data.nakshatra.toUpperCase()}</div>
+            <div class="tag">PRAKRITI: ${data.prakriti.toUpperCase()}</div>
+            <div class="tag" style="background: var(--gold); color: white;">CHAKRA: ${data.chakra}</div>
         `;
-    }
 
-    function getBodyPart(sign) {
-        const parts = {"Aries": "Head", "Taurus": "Throat", "Gemini": "Lungs/Arms", "Cancer": "Stomach", "Leo": "Heart/Spine", "Virgo": "Gut/Abdomen", "Libra": "Kidneys", "Scorpio": "Pelvis", "Sagittarius": "Hips/Liver", "Capricorn": "Knees/Bones", "Aquarius": "Circulation", "Pisces": "Lymphatics"};
-        return parts[sign] || "Nervous System";
-    }
+        document.getElementById('deep-interpretation').innerHTML = `
+            <p>Your <b>Siddhanta</b> scan reveals a <b>${data.prakriti}</b> dominant constitution currently navigating a <b>${data.phase}</b>. 
+            The high Ojas level of ${data.ojas}% indicates a robust <i>Dhatu</i> (tissue) strength, specifically in the <b>${data.bodyPart}</b> area.</p>
+            <p style="margin-top:1rem"><b>Energetic Insight:</b> The alignment of your Janma Nakshatra (${data.nakshatra}) with your current bio-cycle suggests that your <b>${data.chakra}</b> is the primary gateway for energy regulation. Blockages here manifest as ${data.prakriti === 'Vata' ? 'restlessness' : data.prakriti === 'Pitta' ? 'inflammation' : 'stagnation'}.</p>
+            <p style="margin-top:1rem"><b>Mahabhuta Analysis:</b> You have a significant concentration of <b>${data.elements.Agni > 25 ? 'Agni (Fire)' : 'Jala (Water)'}</b> today. This necessitates a ritual adjustment to prevent metabolic burnout.</p>
+        `;
 
-    function generateAdvice(sign, mars, saturn) {
-        let items = [];
-        if (mars > 80) items.push({icon: 'flame', title: 'Power Output', text: 'Engage in interval training before 10 AM to sync with your high Mars peak.'});
-        else items.push({icon: 'battery-charging', title: 'Energy Sparing', text: 'Conserve glucose. Opt for slow-burning carbs and low-impact movement.'});
+        const rituals = [
+            {icon: 'moon', name: 'Chandra Bhedana', desc: 'Left-nostril breathing to cool the system and stabilize the Manas.'},
+            {icon: 'sun', name: 'Surya Namaskar', desc: '12 cycles at dawn to ignite the digestive Agni and Prana flow.'},
+            {icon: 'gem', name: 'Ratna Therapy', desc: `Wear ${data.prakriti === 'Pitta' ? 'Pearl/Silver' : 'Ruby/Gold'} to harmonize ${data.chakra} frequency.`}
+        ];
 
-        if (saturn > 60) items.push({icon: 'wind', title: 'Vagus Nerve', text: 'Practice 4-7-8 breathing to decouple Saturnian stress from your cortisol levels.'});
-        
-        items.push({icon: 'utensils', title: 'Cosmic Fuel', text: `Prioritize ${sign === 'Leo' || sign === 'Aries' ? 'cooling' : 'warming'} foods to balance your elemental excess.`});
-        
-        return items;
-    }
-
-    function renderDashboard(data) {
-        // Stats
-        document.getElementById('vitality-val').innerText = data.mars + "%";
-        document.getElementById('stress-val').innerText = data.saturn + "%";
-        document.getElementById('stability-val').innerText = data.moon + "%";
-
-        // Text
-        document.getElementById('interp-body').innerHTML = data.interpretation;
-
-        // Advice
-        const list = document.getElementById('advice-list');
-        list.innerHTML = '';
-        data.advice.forEach(item => {
-            list.innerHTML += `
-                <div class="advice-card">
-                    <div class="advice-header"><i data-lucide="${item.icon}" style="width:16px"></i> ${item.title}</div>
-                    <div style="font-size: 0.9rem; color: #666">${item.text}</div>
+        document.getElementById('ritual-container').innerHTML = rituals.map(r => `
+            <div class="ritual-card">
+                <div style="display:flex; align-items:center; gap:0.5rem; font-weight:800; color:var(--deep-lavender); font-size:0.8rem">
+                    <i data-lucide="${r.icon}" style="width:14px"></i> ${r.name}
                 </div>
-            `;
-        });
+                <div style="font-size:0.8rem; color:#666; margin-top:0.3rem">${r.desc}</div>
+            </div>
+        `).join('');
 
-        // Charts
         initCharts(data);
     }
 
-    function initCharts(data) {
-        if (chartA) chartA.destroy();
-        if (chartB) chartB.destroy();
+    function getVedicAnatomy(r) {
+        const m = {"Mesha":"Cranium/Neural Pathways", "Vrishabha":"Thyroid/Cervical Spine", "Mithuna":"Bronchial/Nervous System", "Karka":"Cardiac/Pericardium", "Simha":"Solar Plexus/Spinal Column", "Kanya":"Gastrointestinal/Enzymes", "Tula":"Renal/Lumbar Region", "Vrischika":"Reproductive/Excretory", "Dhanu":"Hepatic/Sciatic", "Makara":"Skeletal/Kneecaps", "Kumbha":"Venous/Lower Leg", "Meena":"Lymphatic/Peripheral"};
+        return m[r] || "Whole Physiology";
+    }
 
-        // Vitality Curve
-        const ctxA = document.getElementById('vitalityCycleChart').getContext('2d');
-        chartA = new Chart(ctxA, {
+    function getAssociatedChakra(r) {
+        const m = {"Mesha":"Ajna", "Vrishabha":"Vishuddha", "Mithuna":"Anahata", "Karka":"Anahata", "Simha":"Manipura", "Kanya":"Manipura", "Tula":"Swadhisthana", "Vrischika":"Swadhisthana", "Dhanu":"Muladhara", "Makara":"Muladhara", "Kumbha":"Sahasrara", "Meena":"Sahasrara"};
+        return m[r] || "Anahata";
+    }
+
+    function initCharts(data) {
+        if(bChart) bChart.destroy();
+        if(rChart) rChart.destroy();
+
+        const ctxB = document.getElementById('bioChart').getContext('2d');
+        bChart = new Chart(ctxB, {
             type: 'line',
             data: {
-                labels: ['Dawn', 'Noon', 'Dusk', 'Midnight', '3 AM'],
+                labels: ['04:00', '08:00', '12:00', '16:00', '20:00', '00:00'],
                 datasets: [{
-                    label: 'Predicted Vitality',
-                    data: [data.mars * 0.7, data.mars, data.mars * 0.5, data.mars * 0.2, data.mars * 0.4],
-                    borderColor: '#EC4899',
-                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 0
+                    label: 'Metabolic Prana',
+                    data: [data.prana*1.2, data.prana, data.prana*0.8, data.prana*0.9, data.prana*0.6, data.prana*0.3],
+                    borderColor: '#9D174D',
+                    backgroundColor: 'rgba(157, 23, 77, 0.05)',
+                    fill: true, tension: 0.4, pointRadius: 0
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: { 
-                    y: { beginAtZero: true, max: 100, ticks: { font: { size: 10 } } },
-                    x: { ticks: { font: { size: 10 } } }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
         });
 
-        // Radar Elements
-        const ctxB = document.getElementById('elementalRadar').getContext('2d');
-        chartB = new Chart(ctxB, {
+        const ctxR = document.getElementById('elementRadar').getContext('2d');
+        rChart = new Chart(ctxR, {
             type: 'radar',
             data: {
-                labels: ['Fire', 'Earth', 'Air', 'Water'],
+                labels: ['Akasha', 'Vayu', 'Agni', 'Jala', 'Prithvi'],
                 datasets: [{
-                    data: [data.elements.fire, data.elements.earth, data.elements.air, data.elements.water],
-                    backgroundColor: 'rgba(139, 92, 246, 0.2)',
-                    borderColor: '#8B5CF6',
-                    borderWidth: 2,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#8B5CF6'
+                    data: [data.elements.Akasha, data.elements.Vayu, data.elements.Agni, data.elements.Jala, data.elements.Prithvi],
+                    borderColor: '#4C1D95',
+                    backgroundColor: 'rgba(76, 29, 149, 0.1)',
+                    borderWidth: 2
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
                 plugins: { legend: { display: false } },
-                scales: {
-                    r: {
-                        beginAtZero: true,
-                        max: 50,
-                        ticks: { display: false },
-                        grid: { color: 'rgba(0,0,0,0.05)' }
-                    }
-                }
+                scales: { r: { ticks: { display: false }, grid: { color: 'rgba(0,0,0,0.05)' } } }
             }
         });
     }
